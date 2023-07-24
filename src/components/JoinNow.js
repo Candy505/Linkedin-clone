@@ -1,5 +1,24 @@
 import styled from "styled-components";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
+import { auth } from "../firebase";
+
 const JoinNow = () => {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const signUp = (e) => {
+    e.preventDefault();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <Container>
         <Nav>
@@ -9,19 +28,19 @@ const JoinNow = () => {
         <Signup>
           <span><center>Sign Up</center></span>
           <p>New to Linkedin? Join Now</p>
+          <form onSubmit={signUp}>
           <div>
-            <input type="text" placeholder="Email" className="signin" />
+            <input value={email} type="email" placeholder="Email" className="signin" onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div>
-            <input type="password" placeholder="Password" className="signin" />
+            <input value={password} type="password" placeholder="Password" className="signin" onChange={(e) => setPassword(e.target.value)}/>
           </div>
-          <Signin>
-            <a>Sign Up</a>
-            </Signin>
+          <button type="submit">Sign Up</button>
           <Google>
             <a> <img src="Google__G__Logo.svg.webp" alt="" width="18px" />
             Sign in with Google</a>
           </Google>
+          </form>
           <p>Already on Linkedin? 
             <a href="/">
              Sign in   
