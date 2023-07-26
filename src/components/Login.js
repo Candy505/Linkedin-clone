@@ -1,48 +1,72 @@
 import styled from "styled-components";
-const Login = (props) => {
-  return ( 
-  <Container>
+import { signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
+import { auth } from "../firebase";
+
+
+
+const Login = () => {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const signIn = (e) => {
+    e.preventDefault();
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  };
+
+  return (
+    <>
+      <Container>
         <Nav>
-        <img src="login-logo.svg" alt=""/ >        
-        <div>
+          <img src="login-logo.svg" alt="" />
+          <div>
             <Join id="join">
               <a href="/join">
-                 Join now
+                Join now
               </a>
-              </Join>
+            </Join>
             <SignIn>Sign in</SignIn>
-        </div>
-    </Nav>
-    <Section>
-      <Community>Welcome to Our Community
-        <img src="img.webp" alt=""/>
-      </Community>
-      <Signup>
-        <span>Sign in</span>
-        <p>Stay updated on your professional world</p>
-        <div>
-            <input type="text" placeholder="Email" className="signin" />
           </div>
-          <div>
-            <input type="password" placeholder="Password" className="signin" />
-          </div>
-       <p>Forgot password?</p>
-       <Signin>
-        <a>
-        Sign in
-        </a>
-        </Signin>
-       <Google>
-        <a>
-        <img src="Google__G__Logo.svg.webp" alt="" width="18px"/>
-        Sign in with Google
-        </a>
-      </Google>
-      </Signup>
-      </Section>
-    </Container>
-    )
-   }
+        </Nav>
+        <Section>
+          <Community>Welcome to Our Community
+            <img src="img.webp" alt="" />
+          </Community>
+          <Signup>
+            <span>Sign in</span>
+            <p>Stay updated on your professional world</p>
+            <form onSubmit={signIn}>
+              <div>
+
+                <input value={email} type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} className="signin" />
+              </div>
+              <div>
+                <input value ={password} type="password" placeholder="Password" className="signin" onChange={(e)=> setPassword(e.target.value)}/>
+              </div>
+              <p>Forgot password?</p>
+              <button type="submit">SignIn</button>
+              <Google>
+                <a>
+                  <img src="Google__G__Logo.svg.webp" alt="" width="18px" />
+                  Sign in with Google
+                </a>
+              </Google> 
+              </form>
+          </Signup>
+        </Section>
+      </Container>
+    </>
+  )
+}
 
 const Container = styled.div`
 padding:0px;
@@ -155,7 +179,7 @@ p{
   padding-bottom:10px;
 }
 `;
-const Signin =styled.div`
+const Signin = styled.div`
 a{
 border-radius:20px;
 display:flex;
@@ -176,7 +200,7 @@ color:white;
  }
 `;
 
-const Google =styled.div`
+const Google = styled.div`
 a{
 display:flex;
 justify-content:center;
@@ -194,4 +218,7 @@ img{
 }
 }
 `;
+
+
+
 export default Login;
