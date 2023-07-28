@@ -26,7 +26,7 @@ const JoinNow = () => {
         </Nav>
       <Section>
         <Signup>
-          <span><center>Sign Up</center></span>
+          <span>Sign Up</span>
           <p>New to Linkedin? Join Now</p>
           <form onSubmit={signUp}>
           <div>
@@ -42,7 +42,7 @@ const JoinNow = () => {
             Sign in with Google</a>
           </Google>
           </form>
-          <p>Already on Linkedin? 
+          <p className="ml-16">Already on Linkedin? 
             <a href="/">
              Sign in   
             </a>
@@ -77,12 +77,14 @@ const Nav = styled.nav`
 const Section = styled.div`
   display: flex;
   min-height: 700px;
-  padding: 40px;
   padding-top: 50px;
   position: relative;
   flex-wrap: wrap;
   padding-botton: 90px;
-  width:60%;
+  width: 100%;
+  @media (max-width: 768px){
+    width:100%;
+  }
 `;
 //signup page
 const Signup = styled.div`
@@ -126,7 +128,6 @@ const Signup = styled.div`
     padding-top: 15px;
     font-size: 15px;
     padding-bottom: 10px;
-    text-align:center;
   }
   a{
     text-decoration:none;
@@ -138,8 +139,8 @@ const Signup = styled.div`
     height:initial;
     align-items:center;
     margin-left:10px;
-    
-
+   text-align:left;
+ 
   }
 `;
 //sign up button
