@@ -1,16 +1,15 @@
-import styled from "styled-components";
-import Left from "./Left";
-import Main from "./Main";
-import Right from "./Right";
-const HomeLinkedin = () => {
+import styled from "styled-components"
+import LeftN from "./LeftN";
+import RightN from "./RightN";
+const MyNetworks = () => {
   return (
     <Container>
      <Layout>
-        <Left/>
-        <Main/>
-        <Right/>
+        <LeftN/>
+        <RightN/>
      </Layout>
     </Container>
+  
   )
 }
 const Container=styled.div`
@@ -19,8 +18,8 @@ max-width:100%;
 `;
 const Layout = styled.div`
 display:grid;
-grid-template-areas:"leftside main rightside";
-grid-template-columns: minmax(0, 7.5fr) minmax(0, 12fr) minmax(300px, 7fr);
+grid-template-areas:"leftside rightside";
+grid-template-columns: minmax(0, 6fr) minmax(0, 12fr);
 column-gap:25px;
 row-gap:25px;
 grid-template:auto;
@@ -32,5 +31,4 @@ padding:0 5px;
   padding:0 5px;
 }
 `;
-
-export default HomeLinkedin
+export default MyNetworks

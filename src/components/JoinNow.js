@@ -35,7 +35,8 @@ const JoinNow = () => {
           <div>
             <input value={password} type="password" placeholder="Password" className="signin" onChange={(e) => setPassword(e.target.value)}/>
           </div>
-          <button type="submit">Sign Up</button>
+          <Signin>
+          <button type="submit">Sign Up</button></Signin>
           <Google>
             <a> <img src="Google__G__Logo.svg.webp" alt="" width="18px" />
             Sign in with Google</a>
@@ -143,7 +144,7 @@ const Signup = styled.div`
 `;
 //sign up button
 const Signin = styled.div`
-  a {
+  button {
     border-radius: 20px;
     display: flex;
     justify-content: center;
@@ -157,7 +158,7 @@ const Signin = styled.div`
     text-align: center;
     color: white;
   }
-  a:hover {
+  button:hover {
     background-color: #0a66c2;
   }
 `;

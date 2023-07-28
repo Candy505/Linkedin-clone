@@ -53,9 +53,11 @@ const Login = () => {
                 <input value ={password} type="password" placeholder="Password" className="signin" onChange={(e)=> setPassword(e.target.value)}/>
               </div>
               <p>Forgot password?</p>
-              <button type="submit">SignIn</button>
+              <Signin>
+              <button type="submit">Sign in</button>
+              </Signin>
               <Google>
-                <a>
+                <a href="/">
                   <img src="Google__G__Logo.svg.webp" alt="" width="18px" />
                   Sign in with Google
                 </a>
@@ -180,7 +182,7 @@ p{
 }
 `;
 const Signin = styled.div`
-a{
+button{
 border-radius:20px;
 display:flex;
 justify-content:center;
@@ -188,14 +190,14 @@ width:100%;
 font-size:16px;
 font-weight:bold;
 line-height:10px;
-padding:14px 22px;
+padding:14px 24px;
 background-color:#24a0ed;
 text-decoration:none;
 text-align:center;
 color:white;
 
 }
-  a:hover{
+  button:hover{
   background-color:#0a66c2;
  }
 `;

@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import HomeLinkedin from "./components/HomeLinkedin";
 import Header from "./components/Header";
 import JoinNow from "./components/JoinNow";
+import MyNetworks from "./components/MyNetworks";
 function App() {
   return (
     <div className="App">
@@ -17,6 +18,16 @@ function App() {
               <div>
                 <Header />
                 <HomeLinkedin />
+              </div>
+            }
+          ></Route>
+          <Route
+            exact
+            path="/networks"
+            element={
+              <div>
+                <Header />
+                <MyNetworks />
               </div>
             }
           ></Route>
