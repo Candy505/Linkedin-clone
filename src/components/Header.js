@@ -33,7 +33,7 @@ const Header = (props) => {
               </a>
             </List>
             <List>
-              <a href="/">
+              <a href="/jobs">
                 <img src="nav-jobs.svg" alt="" />
                 <span>
                   <b>Jobs</b>

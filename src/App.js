@@ -5,6 +5,7 @@ import HomeLinkedin from "./components/HomeLinkedin";
 import Header from "./components/Header";
 import JoinNow from "./components/JoinNow";
 import MyNetworks from "./components/MyNetworks";
+import Jobs from "./components/Jobs";
 function App() {
   return (
     <div className="App">
@@ -28,6 +29,16 @@ function App() {
               <div>
                 <Header />
                 <MyNetworks />
+              </div>
+            }
+          ></Route>
+          <Route
+            exact
+            path="/jobs"
+            element={
+              <div>
+                <Header />
+                <Jobs />
               </div>
             }
           ></Route>

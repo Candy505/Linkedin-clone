@@ -1,6 +1,6 @@
 const Left = (props) => {
   return (
-    <div className="ml-40">
+    <div className="ml-40 md:ml-1">
       <div className="text-center overflow-hidden mb-8 mx-2 bg-slate-50 rounded relative shadow-xl border-solid  border border-gray-300">
         <div className="py-12">
           <div className="bg-gradient-to-r from-neutral-500 to-gray-400 bg-center h-20 -mt-12"></div>
