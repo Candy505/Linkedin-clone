@@ -1,56 +1,124 @@
 import styled from "styled-components";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
-import { auth } from "../firebase";
+import React, { useState, useEffect } from "react";
+import { auth,db } from "../firebase";
+import styl from "./Styl.css";
+import { provider } from "../firebase";
+import { signInWithPopup } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { getDocs,doc,collection,addDoc } from 'firebase/firestore';
 
 const JoinNow = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const userCollectionRef = collection(db, "users");
 
   const signUp = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
+        handleAuth(e);
+        navigate('/')
       })
       .catch((error) => {
         console.log(error);
       });
+
   };
+
+
+  const handleAuth = async (e) => {
+
+
+    try {
+
+      // Create a new collection with the username as the collection name
+
+      await addDoc(userCollectionRef, {
+        username:"user",
+        email: email,
+        userId: auth?.currentUser?.uid,
+      });
+
+    } catch (err) {
+      console.log(err)
+    }
+
+    //console.log("Username:", username);
+    //console.log("Role Type:", role);
+    //console.log("Age:", age);
+
+  }
+
+
+  const handleClick = () => {
+    signInWithPopup(auth, provider)
+    .then((result) => {
+      // User is now signed in with their Google account.
+      const user = result.user;
+      
+      console.log("User:", user);
+    })
+    .catch((error) => {
+      console.error("Error signing in with Google:", error);
+    });
+  }
+
 
   return (
     <Container>
-        <Nav>
-          <img src="login-logo.svg" alt="" />
-        </Nav>
+      <Nav>
+        <img src="login-logo.svg" alt="" />
+      </Nav>
       <Section>
         <Signup>
-          <span><center>Sign Up</center></span>
+          <span>Sign Up</span>
           <p>New to Linkedin? Join Now</p>
           <form onSubmit={signUp}>
-          <div>
-            <input value={email} type="email" placeholder="Email" className="signin" onChange={(e) => setEmail(e.target.value)} />
-          </div>
-          <div>
-            <input value={password} type="password" placeholder="Password" className="signin" onChange={(e) => setPassword(e.target.value)}/>
-          </div>
-          <button type="submit">Sign Up</button>
-          <Google>
-            <a> <img src="Google__G__Logo.svg.webp" alt="" width="18px" />
-            Sign in with Google</a>
-          </Google>
+            <div>
+              <input
+                value={email}
+                type="email"
+                placeholder="Email"
+                className="signin"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div>
+              <input
+                value={password}
+                type="password"
+                placeholder="Password"
+                className="signin"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <button type="submit" className="btn">
+                Sign Up
+              </button>
+            </div>
+
+            <Google onClick={handleClick}>
+              
+              <img src="Google__G__Logo.svg.webp" alt="" width="18px" />
+              Sign in with Google
+         
+            </Google>
+
           </form>
-          <p>Already on Linkedin? 
-            <a href="/">
-             Sign in   
-            </a>
-            </p>
+          <p className="ml-16">
+            Already on Linkedin?
+            <a href="/">Sign in</a>
+          </p>
         </Signup>
       </Section>
     </Container>
   );
-}
+};
 
 const Container = styled.div`
   padding: 0px;
@@ -68,24 +136,26 @@ const Nav = styled.nav`
     width: 135px;
     height: 34px;
   }
-  @media (max-width:768px){
-    padding-left:80px;
-    padding-top:20px;
+  @media (max-width: 768px) {
+    padding-left: 80px;
+    padding-top: 20px;
   }
 `;
 const Section = styled.div`
   display: flex;
   min-height: 700px;
-  padding: 40px;
   padding-top: 50px;
   position: relative;
   flex-wrap: wrap;
   padding-botton: 90px;
-  width:60%;
+  width: 100%;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 //signup page
 const Signup = styled.div`
-  width:50%;
+  width: 50%;
   line-height: 40px;
   align-items: center;
   margin-top: 10px;
@@ -94,11 +164,11 @@ const Signup = styled.div`
   position: relative;
   padding: 20px 40px;
   padding: 40px;
-  margin-left:500px;
+  margin-left: 500px;
   div {
     padding-top: 20px;
     max-width: 340px;
-    justify-content:center;
+    justify-content: center;
     input {
       border: 2px outset solid;
       background-color: #eef3f8;
@@ -125,42 +195,40 @@ const Signup = styled.div`
     padding-top: 15px;
     font-size: 15px;
     padding-bottom: 10px;
-    text-align:center;
   }
-  a{
-    text-decoration:none;
-    color:blue;
+  a {
+    text-decoration: none;
+    color: blue;
   }
-  @media (max-width:768px){
-    width:initial;
-    postion:initial;
-    height:initial;
-    align-items:center;
-    margin-left:10px;
-    
-
+  @media (max-width: 768px) {
+    width: initial;
+    postion: initial;
+    height: initial;
+    align-items: center;
+    margin-left: 10px;
+    text-align: left;
   }
 `;
 //sign up button
-const Signin = styled.div`
-  a {
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 10px;
-    padding: 14px 22px;
-    background-color: #24a0ed;
-    text-decoration: none;
-    text-align: center;
-    color: white;
-  }
-  a:hover {
-    background-color: #0a66c2;
-  }
-`;
+
+// button {
+//   border-radius: 20px;
+//   display: flex;
+//   justify-content: center;
+//   width: 100%;
+//   font-size: 16px;
+//   font-weight: bold;
+//   line-height: 10px;
+//   padding: 14px 22px;
+//   background-color: #24a0ed;
+//   text-decoration: none;
+//   text-align: center;
+//   color: white;
+// }
+// button:hover {
+//   background-color: #0a66c2;
+// }
+
 //google sign in
 const Google = styled.div`
   a {
@@ -181,4 +249,4 @@ const Google = styled.div`
   }
 `;
 
-export default JoinNow
+export default JoinNow;

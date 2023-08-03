@@ -1,5 +1,23 @@
 import styled from "styled-components";
+import {signOut } from "firebase/auth";
+import { auth } from "../firebase";
+import {  useNavigate } from "react-router-dom";
+
 const Header = (props) => {
+  const Navigate = useNavigate();
+  const handleSignOut =() => {
+    signOut(auth)
+    .then(() => {
+      // User is now signed out.
+      console.log("User signed out");
+      Navigate('/')
+    })
+    .catch((error) => {
+      console.error("Error signing out:", error);
+    });
+  }
+
+  
   return (
     <Container>
       <Navbar className="active">
@@ -11,7 +29,7 @@ const Header = (props) => {
             <input type="text" placeholder="Search" />
           </div>
           <Icon>
-            <img src="search-icon.svg" alt="" />
+            <img src="search-icon.svg" alt="" className="mt-1"/>
           </Icon>
         </Search>
         <Nav>
@@ -25,7 +43,7 @@ const Header = (props) => {
               </a>
             </List>
             <List>
-              <a>
+              <a href="/networks">
                 <img src="nav-network.svg" alt="" />
                 <span>
                   <b>My Network</b>
@@ -33,7 +51,7 @@ const Header = (props) => {
               </a>
             </List>
             <List>
-              <a>
+              <a href="/jobs">
                 <img src="nav-jobs.svg" alt="" />
                 <span>
                   <b>Jobs</b>
@@ -41,7 +59,7 @@ const Header = (props) => {
               </a>
             </List>
             <List>
-              <a>
+              <a href="/">
                 <img src="nav-messaging.svg" alt="" />
                 <span>
                   <b>Messaging</b>
@@ -49,7 +67,7 @@ const Header = (props) => {
               </a>
             </List>
             <List>
-              <a>
+              <a href="/">
                 <img src="nav-notifications.svg" alt="" />
                 <span>
                   <b>Notifications</b>
@@ -57,19 +75,20 @@ const Header = (props) => {
               </a>
             </List>
             <User>
-              <a>
+              <a href="/">
                 <img src="user.svg" alt="" />
                 <span>
                   <b>Me</b>
                 </span>
                 <img src="down-icon.svg" alt=""/>
               </a>
-              <Signout>
-                <a>Sign out</a>
+
+              <Signout onClick={handleSignOut}>
+                Sign out
               </Signout>
             </User>
             <Work>
-              <a>
+              <a href="/"> 
                 <img src="nav-work.svg" alt="" />
                 <span>
                   <b>For Business</b>
@@ -82,6 +101,7 @@ const Header = (props) => {
     </Container>
   );
 };
+
 const Container = styled.div`
   background-color: white;
   height:70px;
@@ -147,9 +167,7 @@ const Nav = styled.ul`
 const Navlist = styled.li`
   display: flex;
   flex-wrap: nowrap;
-  .active{
-
-  }
+  
 `;
 const List = styled.div`
   display: flex;
@@ -164,6 +182,8 @@ const List = styled.div`
     line-height: 1.5;
     position: relative;
     text-decoration: none;
+    min-height:42px;
+    min-width:80px;
     flex-direction: column;
     justify-content: space-between;
     font-weight: 400px;
@@ -185,7 +205,7 @@ const Signout = styled.div`
   width: 75px;
   height: 25px;
   text-align: center;
-  //display: none;
+  
   a {
     padding-top: 6px;
   }
