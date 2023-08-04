@@ -7,6 +7,7 @@ import JoinNow from "./components/JoinNow";
 import MyNetworks from "./components/MyNetworks";
 import Jobs from "./components/Jobs";
 import Profile from "./components/Profile";
+import styl from './components/Styl.css';
 function App() {
   return (
     <div className="App">
@@ -17,7 +18,7 @@ function App() {
             exact
             path="/home"
             element={
-              <div>
+              <div className="s">
                 <Header />
                 <HomeLinkedin />
               </div>
@@ -27,7 +28,7 @@ function App() {
             exact
             path="/networks"
             element={
-              <div>
+              <div className="s">
                 <Header />
                 <MyNetworks />
               </div>
@@ -37,23 +38,26 @@ function App() {
             exact
             path="/jobs"
             element={
-              <div>
+              <div className="s">
                 <Header />
                 <Jobs />
               </div>
             }
           ></Route>
           <Route exact path="/join" element={<JoinNow />}></Route>
+
           <Route
             exact
             path="/profile"
             element={
-              <div>
+              <div className="s">
                 <Header />
                 <Profile />
               </div>
             }
           ></Route>
+
+          <Route exact path="/home" element={<HomeLinkedin />}></Route>
         </Routes>
       </Router>
     </div>

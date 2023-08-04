@@ -1,11 +1,19 @@
 import styled from "styled-components";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "../firebase";
 import styl from "./Styl.css";
+
 // import { connect } from "react-redux";
 // import { signInAPI } from "../actions";
+
+import { useNavigate } from "react-router-dom";
+import HomeLinkedin from "./HomeLinkedin";
+import { signInWithPopup } from "firebase/auth";
+import { provider } from "../firebase";
 const Login = (props) => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,11 +23,15 @@ const Login = (props) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
+        navigate("/home");
       })
+
       .catch((error) => {
         console.log(error);
       });
   };
+
+  const handleClick = () => {};
 
   return (
     <>
@@ -61,14 +73,23 @@ const Login = (props) => {
                 />
               </div>
               <p>Forgot password?</p>
-             {/* <div onClick={()=>props.signIn()}> */}<div>
-              <button type="submit" className="btn">Sign in</button>
-             </div>
-              <Google>
-                <a href="/">
-                  <img src="Google__G__Logo.svg.webp" alt="" width="18px" />
-                  Sign in with Google
-                </a>
+
+              {/* <div onClick={()=>props.signIn()}> */}
+              <div>
+                <button type="submit" className="btn">
+                  Sign in
+                </button>
+              </div>
+              <div>
+                {/* <button type="submit" className="btn">
+                  Sign in
+                </button> */}
+                
+              </div>
+
+              <Google onClick={handleClick}>
+                <img src="Google__G__Logo.svg.webp" alt="" width="18px" />
+                Sign in with Google
               </Google>
             </form>
           </Signup>
@@ -188,42 +209,41 @@ const Signup = styled.div`
     padding-bottom: 10px;
   }
 `;
-// const Signin = styled.div`
-//   button {
-//     border-radius: 20px;
-//     display: flex;
-//     justify-content: center;
-//     width: 100%;
-//     font-size: 16px;
-//     font-weight: bold;
-//     line-height: 10px;
-//     padding: 14px 24px;
-//     background-color: #24a0ed;
-//     text-decoration: none;
-//     text-align: center;
-//     color: white;
-//   }
-//   button:hover {
-//     background-color: #0a66c2;
-//   }
-// `;
+const Signin = styled.div`
+  //   button {
+  //     border-radius: 20px;
+  //     display: flex;
+  //     justify-content: center;
+  //     width: 100%;
+  //     font-size: 16px;
+  //     font-weight: bold;
+  //     line-height: 10px;
+  //     padding: 14px 24px;
+  //     background-color: #24a0ed;
+  //     text-decoration: none;
+  //     text-align: center;
+  //     color: white;
+  //   }
+  //   button:hover {
+  //     background-color: #0a66c2;
+  //   }
+  //
+`;
 
 const Google = styled.div`
-  a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 14px;
-    width: 100%;
-    border-radius: 26px;
-    border: 1px outset black;
-    padding: 14px 24px;
-    text-decoration: none;
-    color: black;
-    vertical-align: middle;
-    img {
-      margin-right: 14px;
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 14px;
+  width: 100%;
+  border-radius: 26px;
+  border: 1px outset black;
+  padding: 14px 24px;
+  text-decoration: none;
+  color: black;
+  vertical-align: middle;
+  img {
+    margin-right: 14px;
   }
 `;
 // const mapStateToProps = (state)=>{

@@ -1,22 +1,71 @@
 import styled from "styled-components";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
-import { auth } from "../firebase";
+import React, { useState, useEffect } from "react";
+import { auth,db } from "../firebase";
 import styl from "./Styl.css";
+import { provider } from "../firebase";
+import { signInWithPopup } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { getDocs,doc,collection,addDoc } from 'firebase/firestore';
+
 const JoinNow = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const userCollectionRef = collection(db, "users");
 
   const signUp = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
+        handleAuth(e);
+        navigate('/')
       })
       .catch((error) => {
         console.log(error);
       });
+
   };
+
+
+  const handleAuth = async (e) => {
+
+
+    try {
+
+      // Create a new collection with the username as the collection name
+
+      await addDoc(userCollectionRef, {
+        username:"user",
+        email: email,
+        userId: auth?.currentUser?.uid,
+      });
+
+    } catch (err) {
+      console.log(err)
+    }
+
+    //console.log("Username:", username);
+    //console.log("Role Type:", role);
+    //console.log("Age:", age);
+
+  }
+
+
+  const handleClick = () => {
+    signInWithPopup(auth, provider)
+    .then((result) => {
+      // User is now signed in with their Google account.
+      const user = result.user;
+      
+      console.log("User:", user);
+    })
+    .catch((error) => {
+      console.error("Error signing in with Google:", error);
+    });
+  }
+
 
   return (
     <Container>
@@ -52,13 +101,13 @@ const JoinNow = () => {
                 Sign Up
               </button>
             </div>
-            <Google>
-              <a>
-                
-                <img src="Google__G__Logo.svg.webp" alt="" width="18px" />
-                Sign in with Google
-              </a>
+
+            <Google onClick={handleClick}>
+              
+              <img src="Google__G__Logo.svg.webp" alt="" width="18px" />
+              Sign in with Google
             </Google>
+
           </form>
           <p className="ml-16">
             Already on Linkedin?

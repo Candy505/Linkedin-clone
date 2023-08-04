@@ -1,7 +1,25 @@
 import styled from "styled-components";
+import {signOut } from "firebase/auth";
+import { auth } from "../firebase";
+import {  useNavigate } from "react-router-dom";
+import styl from './Styl.css';
 const Header = (props) => {
+  const Navigate = useNavigate();
+  const handleSignOut =() => {
+    signOut(auth)
+    .then(() => {
+      // User is now signed out.
+      console.log("User signed out");
+      Navigate('/')
+    })
+    .catch((error) => {
+      console.error("Error signing out:", error);
+    });
+  }
+
+  
   return (
-    <Container>
+    <Container className="scrollable">
       <Navbar className="active">
         <Logo><a href="/home">
           <img src="linkedin.png" alt=""  width="35px"/>
@@ -64,8 +82,9 @@ const Header = (props) => {
                 </span>
                 <img src="down-icon.svg" alt=""/>
               </a>
-              <Signout>
-                <a href="/">Sign out</a>
+
+              <Signout onClick={handleSignOut}>
+                Sign out
               </Signout>
             </User>
             <Work>
@@ -82,6 +101,7 @@ const Header = (props) => {
     </Container>
   );
 };
+
 const Container = styled.div`
   background-color: white;
   height:70px;
@@ -185,7 +205,7 @@ const Signout = styled.div`
   width: 75px;
   height: 25px;
   text-align: center;
-  display: none;
+  
   a {
     padding-top: 6px;
   }

@@ -2,10 +2,10 @@ import styled from "styled-components";
 import Left from "./Left";
 import Main from "./Main";
 import Right from "./Right";
-
+import styl from "./Styl.css";
 const HomeLinkedin = () => {
   return (
-    <Container>
+    <Container className="scrollable">
      
       <Layout>
         <Left />
@@ -16,6 +16,7 @@ const HomeLinkedin = () => {
   );
 };
 const Container = styled.div`
+overflow-y:auto;
   padding-top: 80px;
   max-width: 100%;
 `;

@@ -16,3 +16,10 @@
     background-color: #0a66c2;
 
 }
+.s{
+  
+  height: 100vh; /* Set the height of the container to fill the viewport */
+  overflow-y: auto; /* Enable vertical scrollbar when content overflows */
+
+
+}
