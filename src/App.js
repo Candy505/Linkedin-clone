@@ -8,6 +8,9 @@ import MyNetworks from "./components/MyNetworks";
 import Jobs from "./components/Jobs";
 import Profile from "./components/Profile";
 import styl from './components/Styl.css';
+import EditProfile from "./components/EditProfile";
+
+
 function App() {
   return (
     <div className="App">
@@ -58,6 +61,7 @@ function App() {
           ></Route>
 
           <Route exact path="/home" element={<HomeLinkedin />}></Route>
+          <Route exact path="/Edit" element={<EditProfile />}></Route>
         </Routes>
       </Router>
     </div>

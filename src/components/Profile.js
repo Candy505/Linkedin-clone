@@ -1,4 +1,10 @@
+import EditProfile from "./EditProfile";
+import {  useNavigate } from "react-router-dom";
 const Profile = () => {
+  const navigate = useNavigate()
+  const handleClick = () => {
+     navigate('/Edit')
+  }
   return (
     <div className="mt-6 mx-40 md:ml-1 md:mx-1 pt-20">
       <div className="text-center overflow-hidden mb-8 mx-2 bg-slate-50 rounded relative shadow-xl border-solid  border border-gray-300">
@@ -18,7 +24,7 @@ const Profile = () => {
                 className=" box-border h-20 w-20 bg-clip-content bg-white border-2 rounded-full -mt-10 ml-8 mb-12 "
               />
 
-              <button className="hover:bg-gray-300 hover:rounded-full m-4 ">
+              <button onClick={handleClick} className="hover:bg-gray-300 hover:rounded-full m-4 ">
                 <img src="edit.png" alt="" className="w-6 m-3" />
               </button>
             </div>
