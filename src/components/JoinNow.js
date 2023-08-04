@@ -54,7 +54,7 @@ const JoinNow = () => {
             </div>
             <Google>
               <a>
-                {" "}
+                
                 <img src="Google__G__Logo.svg.webp" alt="" width="18px" />
                 Sign in with Google
               </a>

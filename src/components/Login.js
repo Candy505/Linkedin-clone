@@ -3,7 +3,9 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../firebase";
 import styl from "./Styl.css";
-const Login = () => {
+// import { connect } from "react-redux";
+// import { signInAPI } from "../actions";
+const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -59,9 +61,9 @@ const Login = () => {
                 />
               </div>
               <p>Forgot password?</p>
-              {/* <Signin> */}<div>
+             {/* <div onClick={()=>props.signIn()}> */}<div>
               <button type="submit" className="btn">Sign in</button>
-              {/* </Signin> */}</div>
+             </div>
               <Google>
                 <a href="/">
                   <img src="Google__G__Logo.svg.webp" alt="" width="18px" />
@@ -224,5 +226,12 @@ const Google = styled.div`
     }
   }
 `;
+// const mapStateToProps = (state)=>{
+//   return {};
+// };
+// const mapDispatchToProps = (dispatch)=>({
+//   signIn: ()=> dispatch(signInAPI()),
+// });
 
+// export default connect(mapStateToProps, mapDispatchToProps)(Login);
 export default Login;

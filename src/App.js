@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import JoinNow from "./components/JoinNow";
 import MyNetworks from "./components/MyNetworks";
 import Jobs from "./components/Jobs";
+import Profile from "./components/Profile";
 function App() {
   return (
     <div className="App">
@@ -43,6 +44,16 @@ function App() {
             }
           ></Route>
           <Route exact path="/join" element={<JoinNow />}></Route>
+          <Route
+            exact
+            path="/profile"
+            element={
+              <div>
+                <Header />
+                <Profile />
+              </div>
+            }
+          ></Route>
         </Routes>
       </Router>
     </div>

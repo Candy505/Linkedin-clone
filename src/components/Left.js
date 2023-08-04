@@ -11,7 +11,12 @@ const Left = (props) => {
               className=" box-border h-16 w-16 bg-clip-content bg-white border-2 rounded-full -mt-10 mx-auto mb-12 "
             />
             <div className="text-base font-semibold -mt-10">
-              Welcome, there!
+              <a
+                href="/profile"
+                className="hover:underline hover:text-sky-800 hover:duration-100 "
+              >
+                Welcome, there!
+              </a>
             </div>
           </a>
           <a href="/">
@@ -45,9 +50,9 @@ const Left = (props) => {
       </div>
       <div className="text-left overflow-hidden -mt-6 mb-8 mx-2 bg-slate-50 rounded relative shadow-xl border-solid  border border-gray-300 pt-2  flex flex-col ">
         <div className="pb-2">
-        <a className="pt-1 pb-1 pr-3 pl-3 text-sm hover:text-blue-600">
-          <span>Groups</span>
-        </a>
+          <a className="pt-1 pb-1 pr-3 pl-3 text-sm hover:text-blue-600">
+            <span>Groups</span>
+          </a>
         </div>
         <a className="pt-1 pb-1 pr-3 pl-3 text-sm hover:text-blue-600 pb-2">
           <span className="flex justify-between">
