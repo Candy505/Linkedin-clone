@@ -1,11 +1,21 @@
 import styled from "styled-components";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "../firebase";
 import styl from "./Styl.css";
+import { useNavigate } from "react-router-dom";
+import HomeLinkedin from "./HomeLinkedin";
+import { signInWithPopup } from "firebase/auth";
+import { provider } from "../firebase";
+
+
 const Login = () => {
+
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  
 
   const signIn = (e) => {
     e.preventDefault();
@@ -13,11 +23,18 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
+        navigate('/home')
       })
+    
       .catch((error) => {
         console.log(error);
       });
-  };
+
+    };
+    
+  const handleClick = () => {
+    
+  }
 
   return (
     <>
@@ -60,14 +77,16 @@ const Login = () => {
               </div>
               <p>Forgot password?</p>
               {/* <Signin> */}<div>
-              <button type="submit" className="btn">Sign in</button>
-              {/* </Signin> */}</div>
-              <Google>
-                <a href="/">
-                  <img src="Google__G__Logo.svg.webp" alt="" width="18px" />
-                  Sign in with Google
-                </a>
+                <button type="submit" className="btn">Sign in</button>
+                {/* </Signin> */}</div>
+
+              <Google onClick={handleClick}>
+              
+                <img src="Google__G__Logo.svg.webp" alt="" width="18px" />
+                Sign in with Google
+           
               </Google>
+
             </form>
           </Signup>
         </Section>
@@ -186,7 +205,7 @@ const Signup = styled.div`
     padding-bottom: 10px;
   }
 `;
-// const Signin = styled.div`
+const Signin = styled.div`
 //   button {
 //     border-radius: 20px;
 //     display: flex;

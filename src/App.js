@@ -43,6 +43,7 @@ function App() {
             }
           ></Route>
           <Route exact path="/join" element={<JoinNow />}></Route>
+          <Route exact path="/home" element={<HomeLinkedin />}></Route>
         </Routes>
       </Router>
     </div>
