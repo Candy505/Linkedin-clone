@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function Post({post}) {
+
+  const [like, setLike] = useState(0);
   return (
     <>
     <div>
@@ -47,8 +49,8 @@ function Post({post}) {
           </div>
           <div className="flex items-center justify-evenly  py-3">
             <button className="flex items-center w-4 h-4">
-              <img src="likepost.png" alt="" />
-              <span className="ml-1">Like</span>
+             
+              <button onClick={(e)=>setLike(like+1)} className="ml-1">{like} Like</button>
             </button>
 
             <button className="flex items-center w-4 h-4 mr-8">
