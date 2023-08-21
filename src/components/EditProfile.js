@@ -1,52 +1,76 @@
 import React, { useState } from 'react'
-import { collection,addDoc} from 'firebase/firestore';
-import { db,auth,storage } from '../firebase';
+import {setDoc, addDoc, collection } from 'firebase/firestore';
+import { db, auth, storage } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { ref } from 'firebase/storage';
 import { uploadBytes } from 'firebase/storage';
 import HomeLinkedin from './HomeLinkedin';
-
+import { getDownloadURL } from 'firebase/storage';
+import { current } from '@reduxjs/toolkit';
+import { doc } from 'firebase/firestore';
 function EditProfile() {
 
+    const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState("");
-    const [image,setImage] = useState(null);
-   
-    const userCollectionRef = collection(db, "userinfo");
-    const navigate = useNavigate()
+    const [image, setImage] = useState(null);
+
+    const userCollectionRef = collection(db, "users");
+
 
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
         setImage(file); // Save the selected image in state
-      };
+    };
 
     const handleChange = async (e) => {
         e.preventDefault();
+           
+           const userDocRef = doc(userCollectionRef,auth.currentUser.uid); // This creates a new document reference
+           // const newDocId = newDocRef; 
 
         try {
 
+           
+
+            let imageUrl = "";
+
             if (image) {
-                const storageRef = ref(storage, `profileImages/${image.name}`);
+                const storageRef = ref(storage, `profileImages/${auth.currentUser.uid}`);
                 await uploadBytes(storageRef, image);
-              }
+                imageUrl = await getDownloadURL(storageRef);
+            }
 
 
-            await addDoc(userCollectionRef, {
+            await setDoc(userDocRef, {
                 name: username,
                 status: status,
                 email: email,
                 userId: auth?.currentUser?.uid,
             });
-             
-            navigate('/home')
+
+           
+
+            navigate('/Profile', {
+                state: {
+                    username,
+                    status,
+                    email,
+                    imageUrl
+                    
+                },
+            });
+ 
+
         } catch (err) {
             console.log(err)
         }
 
         console.log("Username:", username);
         console.log("Role Type:", status);
-        console.log("Age:", email);
+      //  console.log(newDocId);
+        console.log(auth.currentUser.uid)
 
     }
 

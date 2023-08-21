@@ -1,19 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
+import { format } from 'timeago.js';
 function Jobslist() {
 
   const [jobs, setJobs] = useState([]);
 
+  /*
+  import axios from 'axios';
+
+const options = {
+  method: 'GET',
+  url: 'https://jobsearch4.p.rapidapi.com/api/v2/Jobs/Latest',
+  headers: {
+    'X-RapidAPI-Key': 'c308b3ff5dmsh0bbf423bc38b407p1b9aadjsna8ac61f26f41',
+    'X-RapidAPI-Host': 'jobsearch4.p.rapidapi.com'
+  }
+};
+
+try {
+	const response = await axios.request(options);
+	console.log(response.data);
+} catch (error) {
+	console.error(error);
+}
+
+
+  */
   const fetchJobListings = async () => {
     const options = {
       method: 'GET',
       url: 'https://remote-jobs-api.p.rapidapi.com/jobs',
       params: {
-        category: 'engineering'
+        category: ''
       },
       headers: {
-        'X-RapidAPI-Key': 'c308b3ff5dmsh0bbf423bc38b407p1b9aadjsna8ac61f26f41',
+        'X-RapidAPI-Key': '868190dd4dmsh49b1ed5ae7dc14dp1deaffjsn68502d7596db',
         'X-RapidAPI-Host': 'remote-jobs-api.p.rapidapi.com'
       }
     };
@@ -27,7 +48,7 @@ function Jobslist() {
   }
 
   useEffect(() => {
-  //  fetchJobListings();
+ // fetchJobListings();
   }, []);
 
   return (
@@ -63,7 +84,7 @@ function Jobslist() {
               {job.location}
             </span>
             <span className="text-sm text-thin text-gray-500 ">
-              {job.date}
+              {format(job.date)}
             </span>
            
           </div>
