@@ -1,36 +1,37 @@
 import styled from "styled-components";
-import {signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Messages from "./Chats/Messages";
-import styl from './Styl.css';
+import styl from "./Styl.css";
 const Header = (props) => {
   const Navigate = useNavigate();
-  const handleSignOut =() => {
+  const handleSignOut = () => {
     signOut(auth)
-    .then(() => {
-      // User is now signed out.
-      console.log("User signed out");
-      Navigate('/')
-    })
-    .catch((error) => {
-      console.error("Error signing out:", error);
-    });
-  }
+      .then(() => {
+        // User is now signed out.
+        console.log("User signed out");
+        Navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error signing out:", error);
+      });
+  };
 
-  
   return (
-    <Container className="scrollable">
-      <Navbar className="active">
-        <Logo><a href="/home">
-          <img src="linkedin.png" alt=""  width="35px"/>
-        </a></Logo>
+    <Container>
+      <Navbar>
+        <Logo>
+          <a href="/home">
+            <img src="linkedin.png" alt="" width="35px" />
+          </a>
+        </Logo>
         <Search>
           <div>
             <input type="text" placeholder="Search" />
           </div>
           <Icon>
-            <img src="search-icon.svg" alt="" className="mt-1"/>
+            <img src="search-icon.svg" alt="" className="mt-1" />
           </Icon>
         </Search>
         <Nav>
@@ -81,15 +82,26 @@ const Header = (props) => {
                 <span>
                   <b>Me</b>
                 </span>
-                <img src="down-icon.svg" alt=""/>
+                <Signout>
+                <div class="dropdown">
+                  <button class="dropbtn">
+                    <img src="down-icon.svg" alt="" />
+                  </button>
+                  <div class="dropdown-content">
+                    <a href="#" onClick={handleSignOut}>
+                      Sign Out
+                    </a>
+                    <a href="/profile">My Profile</a>
+                    <a href="#">Setting</a>
+                  </div>
+                </div>
+              </Signout>
               </a>
 
-              <Signout onClick={handleSignOut}>
-                Sign out
-              </Signout>
+              
             </User>
             <Work>
-              <a href="/"> 
+              <a href="/">
                 <img src="nav-work.svg" alt="" />
                 <span>
                   <b>For Business</b>
@@ -105,11 +117,10 @@ const Header = (props) => {
 
 const Container = styled.div`
   background-color: white;
-  height:70px;
+  height: 70px;
   padding: 0 20px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   left: 0;
-  position: fixed;
   top: 0;
   width: 100vw;
 `;
@@ -121,15 +132,14 @@ const Navbar = styled.div`
   margin: 0 auto;
   min-height: 100;
 `;
-const Logo = styled.span` 
- margin-top:10px;
+const Logo = styled.span`
+  margin-top: 10px;
   margin-right: 8px;
   font-size: 0px;
- 
 `;
 
 const Search = styled.div`
-margin-top:10px;
+  margin-top: 10px;
   opacity: 1;
   flex-grow: 1;
   position: relative;
@@ -168,7 +178,6 @@ const Nav = styled.ul`
 const Navlist = styled.li`
   display: flex;
   flex-wrap: nowrap;
-  
 `;
 const List = styled.div`
   display: flex;
@@ -183,8 +192,8 @@ const List = styled.div`
     line-height: 1.5;
     position: relative;
     text-decoration: none;
-    min-height:42px;
-    min-width:80px;
+    min-height: 42px;
+    min-width: 80px;
     flex-direction: column;
     justify-content: space-between;
     font-weight: 400px;
@@ -198,34 +207,58 @@ const List = styled.div`
     color: rgb(0, 0, 0, 0.9);
   }
 `;
-const Signout = styled.div`
-  position: absolute;
-  top: 70px;
-  background: white;
-  border-radius: 2px;
-  width: 75px;
-  height: 25px;
-  text-align: center;
-  
-  a {
-    padding-top: 6px;
-  }
-`;
+
 const User = styled(List)`
   a > img {
-    width: 24px;
+    width: 30px;
     border-radius: 50%;
   }
-//   img:hover {
-//     $(Signout) {
-//       display: flex;
-//       justify-content: center;
-//       align-items: center;
-//     }
-//   }
+  //   img:hover {
+  //     $(Signout) {
+  //       display: flex;
+  //       justify-content: center;
+  //       align-items: center;
+  //     }
+  //   }
 `;
-const Work=styled(User)`
-border-left:1px solid rgb(0,0,0,0.08);
+const Signout = styled.div`
+  .dropbtn {
+    position: absolute;
+    top: 40px;
+    width: 75px;
+    height: 25px;
+    text-align: center;
+    right:-26px;
+  }
+  .dropdown-content {
+    top: 70px;
+    display: none;
+    position: fixed;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  
+  }
+
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 10px 14px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+`;
+const Work = styled(User)`
+  border-left: 1px solid rgb(0, 0, 0, 0.08);
 `;
 
 export default Header;

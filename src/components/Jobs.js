@@ -15,7 +15,7 @@ const Jobs = () => {
   );
 }
 const Container = styled.div`
-  padding-top: 80px;
+  padding-top: 10px;
   max-width: 100%;
 `;
 const Layout = styled.div`

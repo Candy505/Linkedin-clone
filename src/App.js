@@ -7,10 +7,9 @@ import JoinNow from "./components/JoinNow";
 import MyNetworks from "./components/MyNetworks";
 import Jobs from "./components/Jobs";
 import Profile from "./components/Profile";
-import styl from './components/Styl.css';
+import styl from "./components/Styl.css";
 import EditProfile from "./components/EditProfile";
 import Messages from "./components/Chats/Messages";
-
 
 function App() {
   return (
@@ -22,7 +21,7 @@ function App() {
             exact
             path="/home"
             element={
-              <div className="s">
+              <div>
                 <Header />
                 <HomeLinkedin />
               </div>
@@ -63,8 +62,8 @@ function App() {
 
           <Route exact path="/home" element={<HomeLinkedin />}></Route>
           <Route exact path="/Edit" element={<EditProfile />}></Route>
-          <Route exact path="/Profile" element={<Profile/>}></Route>
-          <Route exact path ="/Messages" element={<Messages/>}></Route>
+          <Route exact path="/Profile" element={<Profile />}></Route>
+          <Route exact path="/Messages" element={<Messages />}></Route>
         </Routes>
       </Router>
     </div>
