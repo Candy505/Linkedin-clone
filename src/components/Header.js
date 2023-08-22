@@ -75,7 +75,7 @@ const Header = (props) => {
               </a>
             </List>
             <User>
-              <a href="/">
+              <a href="/profile">
                 <img src="user.svg" alt="" />
                 <span>
                   <b>Me</b>
