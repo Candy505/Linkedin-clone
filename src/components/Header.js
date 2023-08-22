@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import {  useNavigate } from "react-router-dom";
+import Messages from "./Chats/Messages";
 import styl from './Styl.css';
 const Header = (props) => {
   const Navigate = useNavigate();
@@ -59,7 +60,7 @@ const Header = (props) => {
               </a>
             </List>
             <List>
-              <a href="/">
+              <a href="/messages">
                 <img src="nav-messaging.svg" alt="" />
                 <span>
                   <b>Messaging</b>

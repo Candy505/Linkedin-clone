@@ -1,10 +1,22 @@
 import EditProfile from "./EditProfile";
 import {  useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
 const Profile = () => {
+
+
   const navigate = useNavigate()
   const handleClick = () => {
      navigate('/Edit')
   }
+
+  const location = useLocation();
+    const { state } = location;
+
+    // Access the passed user data
+    const { username = 'xyz', status = 'Software Engineer at ABC', email = '', imageUrl = null } = state || {};
+    console.log(state)
+
   return (
     <div className="mt-6 mx-40 md:ml-1 md:mx-1 pt-20">
       <div className="text-center overflow-hidden mb-8 mx-2 bg-slate-50 rounded relative shadow-xl border-solid  border border-gray-300">
@@ -19,7 +31,7 @@ const Profile = () => {
           <div>
             <div className="flex justify-between">
               <img
-                src="photo.svg"
+                src={imageUrl}
                 alt=""
                 className=" box-border h-20 w-20 bg-clip-content bg-white border-2 rounded-full -mt-10 ml-8 mb-12 "
               />
@@ -29,17 +41,16 @@ const Profile = () => {
               </button>
             </div>
             <div className="text-base font-semibold -mt-10 text-left pl-8">
-              <a
-                href="/profile"
-                className="hover:underline hover:text-sky-800 hover:duration-100 "
-              >
-                XYZ
-              </a>
+              <h3>
+                {username}
+              </h3>
+               
+              
             </div>
           </div>
 
           <div className="text-gray-600 mt-1 text-sm font-normal text-left pl-8">
-            Employee at Amazon
+           {status}
           </div>
           <div className="text-left pl-8 mt-1 text-sky-500 font-semibold">
             <a
@@ -81,7 +92,7 @@ const Profile = () => {
           </span>
           <div className="pl-4 pt-2 border-b border-b-gray-300 border-solid pb-5">
             <button className="text-sky-600 mt-1 text-sm border-solid border p-1 px-4 rounded-3xl hover:bg-sky-100 font-semibold flex items-center ">
-              create a post
+              create a post 
             </button>
           </div>
         </div>

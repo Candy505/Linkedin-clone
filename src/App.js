@@ -9,6 +9,7 @@ import Jobs from "./components/Jobs";
 import Profile from "./components/Profile";
 import styl from './components/Styl.css';
 import EditProfile from "./components/EditProfile";
+import Messages from "./components/Chats/Messages";
 
 
 function App() {
@@ -62,6 +63,8 @@ function App() {
 
           <Route exact path="/home" element={<HomeLinkedin />}></Route>
           <Route exact path="/Edit" element={<EditProfile />}></Route>
+          <Route exact path="/Profile" element={<Profile/>}></Route>
+          <Route exact path ="/Messages" element={<Messages/>}></Route>
         </Routes>
       </Router>
     </div>
